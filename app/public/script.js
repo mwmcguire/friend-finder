@@ -1,6 +1,27 @@
+// Chosen CSS
+var config = {
+  ".chosen-select": {},
+  ".chosen-select-deselect": {
+      allow_single_deselect: true
+  },
+  ".chosen-select-no-single": {
+      disable_search_threshold: 10
+  },
+  ".chosen-select-no-results": {
+      no_results_text: "Oops, nothing found!"
+  },
+  ".chosen-select-width": {
+      width: "95%"
+  }
+};
+for (var selector in config) {
+  $(selector).chosen(config[selector]);
+}
 
-$("#submit").on("click", function(e) {
-  e.preventDefault();
+
+// Capture form inputs
+$("#submit").on("click", function(event) {
+  event.preventDefault();
 
   // Form validation
   function validateForm() {
@@ -23,7 +44,18 @@ $("#submit").on("click", function(e) {
     var results = {
       name: $("#name").val().trim(),
       photo: $("#photo").val().trim(),
-      scores: []
+      scores: [
+        $("#q1").val(),
+        $("#q2").val(),
+        $("#q3").val(),
+        $("#q4").val(),
+        $("#q5").val(),
+        $("#q6").val(),
+        $("#q7").val(),
+        $("#q8").val(),
+        $("#q9").val(),
+        $("#q10").val()
+      ]
     };
 
     $(".chosen-select-no-single :selected").each(function(i, sel){ 
@@ -38,8 +70,8 @@ $("#submit").on("click", function(e) {
       $("#match-name").text(data.name);
       $("#match-img").attr("src", data.photo);
 
-      // Dipslay modal
-      $("modal").modal("toggle");
+      // Display modal
+      $("#modal").modal("toggle");
     });
   } else {
     alert("Please fill out all fields before submitting!");
