@@ -1,5 +1,6 @@
 // application's data stored here
 
+// friends examples:
 var friends = [
   {
   "name": "Tim",
