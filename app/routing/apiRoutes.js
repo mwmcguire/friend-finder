@@ -16,35 +16,28 @@ module.exports = function(app) {
 
     var match = {
       name: "",
-      photo: "",
-      difference: 100
+      photo: ""
     }
 
+    var difference = 40;
 
-    friends.forEach(function(friend) {
-      console.log(friends[i].name);
+    for ( var i in friends) {
+      totalDifference = 0;
 
-      var scores = [];
-      var totalDifference = 100;
-
-      for (var i = 0; i < friend.scores.length; i++) {
-        scores.push(Math.abs(parseInt(req.body.scores[i]) - parseInt(friend.scores[i])));
+      for (var j in friends[i].scores) {
+        totalDifference += Math.abs(friends[i].scores[j] - req.body.scores[j])
       }
-
-      totalDifference = scores.reduce(function(total, num) {
-        return total + num;
-      }, 0)
 
       if (totalDifference < difference) {
         difference = totalDifference;
-        match.name = friend.name;
-        match.photo = friend.photo;
+        match.name = friends.name;
+        match.photo = friends.photo;
       }
-    });
-
-    res.json(match);
+    }
 
     friends.push(req.body);
+    res.json(match);
+
   });
 
   // determine the users most compatible friend... 
